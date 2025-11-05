@@ -1,28 +1,45 @@
-import { useState } from 'react'
+import React from 'react';
+import Hero from './components/Hero';
+import Services from './components/Services';
+import Approach from './components/Approach';
+import Footer from './components/Footer';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+    <div className="min-h-screen bg-[#0a0a0f] text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+      {/* Top nav */}
+      <header className="sticky top-0 z-50 w-full border-b border-[rgba(255,255,255,0.06)] bg-[#0a0a0f]/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-lg" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%)' }} />
+            <span className="text-sm font-semibold tracking-wide text-white">Loop Methods</span>
+          </div>
+          <nav className="hidden items-center gap-6 text-sm text-[#a0a0b8] md:flex">
+            <a href="#services" className="transition-colors hover:text-white">Services</a>
+            <a href="#approach" className="transition-colors hover:text-white">Approach</a>
+            <a href="#contact" className="transition-colors hover:text-white">Contact</a>
+          </nav>
+          <a
+            href="#contact"
+            className="hidden rounded-xl px-4 py-2 text-sm font-medium text-white md:inline-flex"
+            style={{ background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', boxShadow: '0 8px 32px 0 rgba(99, 102, 241, 0.25)' }}
           >
-            Count is {count}
-          </button>
+            Start a Project
+          </a>
         </div>
-      </div>
-    </div>
-  )
-}
+      </header>
 
-export default App
+      <main>
+        <Hero />
+        <div id="approach">
+          <Services />
+          <Approach />
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
