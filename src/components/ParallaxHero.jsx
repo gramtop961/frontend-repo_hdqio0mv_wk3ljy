@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Spline from '@splinetool/react-spline';
+import { Link } from 'react-router-dom';
 
 const ParallaxHero = ({ theme }) => {
   const [offset, setOffset] = useState(0);
@@ -13,7 +14,7 @@ const ParallaxHero = ({ theme }) => {
   const isDark = theme === 'dark';
 
   return (
-    <section id="home" className={`relative min-h-[100vh] w-full overflow-hidden ${isDark ? 'bg-[#0a0a0f] text-white' : 'bg-white text-black'}`}>
+    <section className={`relative min-h-[100vh] w-full overflow-hidden ${isDark ? 'bg-[#0a0a0f] text-white' : 'bg-white text-black'}`}>
       {/* 3D Spline */}
       <div className="absolute inset-0">
         <Spline
@@ -61,15 +62,15 @@ const ParallaxHero = ({ theme }) => {
           Enterprise-grade solutions in AI, Web3, IoT, and Software. Glassmorphic design, production reliability, and rich motion crafted as one.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#about"
+          <Link
+            to="/about"
             className="group relative inline-flex items-center justify-center rounded-xl px-6 py-3 font-medium text-white transition-transform duration-300 ease-out hover:scale-105"
             style={{ background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', boxShadow: '0 8px 32px 0 rgba(99, 102, 241, 0.25)' }}
           >
             Learn More
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            to="/contact"
             className={`relative inline-flex items-center justify-center rounded-xl border px-6 py-3 transition-all duration-300 hover:scale-105 ${
               isDark
                 ? 'border-white/10 bg-white/5 text-white hover:border-white/20'
@@ -78,7 +79,7 @@ const ParallaxHero = ({ theme }) => {
             style={{ boxShadow: '0 8px 32px 0 rgba(99, 102, 241, 0.15)' }}
           >
             Get in Touch
-          </a>
+          </Link>
         </div>
       </div>
     </section>
