@@ -1,29 +1,42 @@
-import React from 'react';
-import SimplePage from './SimplePage';
-
-const ContactPage = ({ theme }) => {
-  const isDark = theme === 'dark';
+export default function ContactPage({ theme }) {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
-      <SimplePage
-        theme={theme}
-        title="Contact"
-        subtitle="Tell us about your project."
-      >
-        <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <input className={`rounded-xl border px-4 py-3 ${isDark ? 'border-white/10 bg-white/5 text-white placeholder:text-white/50' : 'border-black/10 bg-black/[0.03] text-black placeholder:text-black/50'}`} placeholder="Name" />
-          <input className={`rounded-xl border px-4 py-3 ${isDark ? 'border-white/10 bg-white/5 text-white placeholder:text-white/50' : 'border-black/10 bg-black/[0.03] text-black placeholder:text-black/50'}`} placeholder="Email" />
-          <input className={`rounded-xl border px-4 py-3 md:col-span-2 ${isDark ? 'border-white/10 bg-white/5 text-white placeholder:text-white/50' : 'border-black/10 bg-black/[0.03] text-black placeholder:text-black/50'}`} placeholder="Company" />
-          <textarea rows={5} className={`rounded-xl border px-4 py-3 md:col-span-2 ${isDark ? 'border-white/10 bg-white/5 text-white placeholder:text-white/50' : 'border-black/10 bg-black/[0.03] text-black placeholder:text-black/50'}`} placeholder="Project details" />
-          <div className="md:col-span-2">
-            <button type="button" className="inline-flex items-center rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 px-5 py-3 font-medium text-white">
-              Send Message
-            </button>
-          </div>
-        </form>
-      </SimplePage>
+    <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h1 className={`text-3xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Get in touch</h1>
+      <p className={`mt-2 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>Tell us about your project.</p>
+
+      <form className="mt-8 grid gap-4">
+        <input
+          type="text"
+          required
+          placeholder="Name"
+          className={`w-full rounded-lg border px-4 py-3 bg-transparent outline-none ${
+            theme === 'dark'
+              ? 'border-white/15 text-white placeholder:text-zinc-500 focus:border-indigo-400'
+              : 'border-black/10 text-zinc-900 placeholder:text-zinc-400 focus:border-indigo-500'
+          }`}
+        />
+        <input
+          type="email"
+          required
+          placeholder="Email"
+          className={`w-full rounded-lg border px-4 py-3 bg-transparent outline-none ${
+            theme === 'dark'
+              ? 'border-white/15 text-white placeholder:text-zinc-500 focus:border-indigo-400'
+              : 'border-black/10 text-zinc-900 placeholder:text-zinc-400 focus:border-indigo-500'
+          }`}
+        />
+        <textarea
+          rows={5}
+          required
+          placeholder="How can we help?"
+          className={`w-full rounded-lg border px-4 py-3 bg-transparent outline-none ${
+            theme === 'dark'
+              ? 'border-white/15 text-white placeholder:text-zinc-500 focus:border-indigo-400'
+              : 'border-black/10 text-zinc-900 placeholder:text-zinc-400 focus:border-indigo-500'
+          }`}
+        />
+        <button type="submit" className="rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-3 font-medium">Send message</button>
+      </form>
     </div>
   );
-};
-
-export default ContactPage;
+}

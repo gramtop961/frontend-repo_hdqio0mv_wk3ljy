@@ -1,58 +1,74 @@
-import React from 'react';
+import { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { Sun, Moon, Menu } from 'lucide-react';
-import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = ({ theme, onToggleTheme }) => {
-  const isDark = theme === 'dark';
-  const linkClass = ({ isActive }) =>
-    `${isDark ? 'text-[#a0a0b8] hover:text-white' : 'text-gray-600 hover:text-black'} ${isActive ? (isDark ? 'text-white' : 'text-black') : ''}`;
+export default function Navbar({ theme, onToggleTheme }) {
+  const [open, setOpen] = useState(false);
+
+  const linkCls = ({ isActive }) =>
+    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+      isActive
+        ? 'text-indigo-500'
+        : theme === 'dark'
+        ? 'text-zinc-300 hover:text-white'
+        : 'text-zinc-700 hover:text-black'
+    }`;
 
   return (
-    <header className={`sticky top-0 z-50 w-full border-b backdrop-blur-xl ${
-      isDark ? 'bg-[#0a0a0f]/70 border-white/10' : 'bg-white/70 border-black/10'
-    }`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-3">
-            <div
-              className="h-8 w-8 rounded-lg"
-              style={{ background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%)' }}
-            />
-            <span className={`text-sm font-semibold tracking-wide ${isDark ? 'text-white' : 'text-black'}`}>
-              Loop Methods
-            </span>
+    <header className={`${theme === 'dark' ? 'bg-black/30' : 'bg-white/60'} sticky top-0 z-50 backdrop-blur-xl border-b ${theme === 'dark' ? 'border-white/10' : 'border-black/10'}`}
+      style={{ boxShadow: '0 8px 32px 0 rgba(99,102,241,0.15)' }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-lg bg-indigo-500/90" />
+            <span className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Loop Methods</span>
           </Link>
-        </div>
-        <nav className={`hidden items-center gap-6 text-sm md:flex`}>
-          <NavLink to="/" className={linkClass} end>Home</NavLink>
-          <NavLink to="/about" className={linkClass}>About</NavLink>
-          <NavLink to="/ai" className={linkClass}>AI & ML</NavLink>
-          <NavLink to="/web3" className={linkClass}>Web 3.0</NavLink>
-          <NavLink to="/software" className={linkClass}>Software</NavLink>
-          <NavLink to="/iot" className={linkClass}>IoT</NavLink>
-          <NavLink to="/salesforce" className={linkClass}>Salesforce</NavLink>
-          <NavLink to="/portfolio" className={linkClass}>Portfolio</NavLink>
-          <NavLink to="/careers" className={linkClass}>Careers</NavLink>
-          <NavLink to="/contact" className={linkClass}>Contact</NavLink>
-        </nav>
-        <div className="flex items-center gap-3">
-          <button
-            aria-label="Toggle theme"
-            onClick={onToggleTheme}
-            className={`inline-flex items-center justify-center rounded-xl p-2 transition-transform duration-300 hover:scale-105 ${
-              isDark ? 'border border-white/10 bg-white/5 text-white' : 'border border-black/10 bg-black/5 text-black'
-            }`}
-            style={{ boxShadow: '0 8px 32px 0 rgba(99, 102, 241, 0.15)' }}
-          >
-            {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
-          <button className={`md:hidden inline-flex items-center justify-center rounded-xl p-2 ${isDark ? 'text-white/80 hover:text-white' : 'text-black/80 hover:text-black'}`}>
-            <Menu className="h-5 w-5" />
-          </button>
+
+          <nav className="hidden md:flex items-center gap-1">
+            <NavLink to="/" className={linkCls} end>Home</NavLink>
+            <NavLink to="/about" className={linkCls}>About</NavLink>
+            <NavLink to="/services" className={linkCls}>Services</NavLink>
+            <NavLink to="/contact" className={linkCls}>Contact</NavLink>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onToggleTheme}
+              aria-label="Toggle theme"
+              className={`inline-flex items-center justify-center h-10 w-10 rounded-lg border transition ${
+                theme === 'dark'
+                  ? 'border-white/10 text-zinc-200 hover:bg-white/5'
+                  : 'border-black/10 text-zinc-800 hover:bg-black/5'
+              }`}
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className={`md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border ${
+                theme === 'dark'
+                  ? 'border-white/10 text-zinc-200 hover:bg-white/5'
+                  : 'border-black/10 text-zinc-800 hover:bg-black/5'
+              }`}
+              aria-label="Toggle navigation"
+            >
+              <Menu size={18} />
+            </button>
+          </div>
         </div>
       </div>
+
+      {open && (
+        <div className={`md:hidden border-t ${theme === 'dark' ? 'border-white/10 bg-black/40' : 'border-black/10 bg-white/70'} backdrop-blur-xl`}> 
+          <div className="px-4 py-3 flex flex-col">
+            <NavLink onClick={() => setOpen(false)} to="/" className={linkCls} end>Home</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/about" className={linkCls}>About</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/services" className={linkCls}>Services</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/contact" className={linkCls}>Contact</NavLink>
+          </div>
+        </div>
+      )}
     </header>
   );
-};
-
-export default Navbar;
+}
